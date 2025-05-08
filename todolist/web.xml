@@ -1,0 +1,28 @@
+<web-app>
+    <servlet>
+        <servlet-name>AddTodoServlet</servlet-name>
+        <servlet-class>com.example.todolistapp.AddTodoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddTodoServlet</servlet-name>
+        <url-pattern>/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ListTodoServlet</servlet-name>
+        <servlet-class>com.example.todolistapp.ListTodoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListTodoServlet</servlet-name>
+        <url-pattern>/list</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteTodoServlet</servlet-name>
+        <servlet-class>com.example.todolistapp.DeleteTodoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteTodoServlet</servlet-name>
+        <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+</web-app>
