@@ -11,8 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const li = document.createElement('li');
                 li.innerHTML = `
                     <span class="todo-text">${todo.text}</span>
-                    <button class="check-btn">Check/Uncheck</button>
-                    <button class="delete-btn">Delete</button>
+                    <div class="button-group">
+                        <button class="check-btn">Check/Uncheck</button>
+                        <button class="delete-btn">Delete</button>
+                    </div>
                 `;
                 li.dataset.id = todo.id;
                 li.classList.add('fade-in');
@@ -33,8 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const li = document.createElement('li');
                 li.innerHTML = `
                     <span class="todo-text">${newTodo}</span>
-                    <button class="check-btn">Check/Uncheck</button>
-                    <button class="delete-btn">Delete</button>
+                    <div class="button-group">
+                        <button class="check-btn">Check/Uncheck</button>
+                        <button class="delete-btn">Delete</button>
+                    </div>
                 `;
                 todoList.appendChild(li);
                 todoInput.value = '';
@@ -63,14 +67,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle check/uncheck and delete actions
     todoList.addEventListener('click', (e) => {
         if (e.target.classList.contains('delete-btn')) {
-            const todoId = e.target.parentElement.dataset.id;
+            const todoId = e.target.closest('li').dataset.id;
             fetch('/delete', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: `todoId=${todoId}`
-            }).then(() => e.target.parentElement.remove());
+            }).then(() => e.target.closest('li').remove());
         } else if (e.target.classList.contains('check-btn')) {
-            const todoText = e.target.parentElement.querySelector('.todo-text');
+            const todoText = e.target.closest('li').querySelector('.todo-text');
             todoText.classList.toggle('crossed-out');
         }
     });
