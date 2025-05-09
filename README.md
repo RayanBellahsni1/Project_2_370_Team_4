@@ -6,6 +6,9 @@ This is a simple To-Do List web application that allows users to:
 - Mark tasks as completed or uncompleted.
 - Delete tasks.
 
+
+Tester Video link: https://drive.google.com/drive/folders/1KecwMRXBNlac1o1nGXdny4i3LroAjJJi?usp=sharing
+
 The application uses a front-end built with HTML, CSS, and JavaScript, and communicates with a back-end server built using Java (Spring Boot).
 
 ## Requirements
