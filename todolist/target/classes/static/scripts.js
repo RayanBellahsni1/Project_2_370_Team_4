@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
             todos.forEach(todo => {
                 const li = document.createElement('li');
                 li.textContent = todo;
+                li.classList.add('fade-in');
                 todoList.appendChild(li);
             });
         });
@@ -29,8 +30,27 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(todo => {
             const li = document.createElement('li');
             li.textContent = todo;
+            li.classList.add('fade-in');
             todoList.appendChild(li);
             todoInput.value = '';
         });
     });
+
+    // Add fade-in animation
+    const style = document.createElement('style');
+    style.textContent = `
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    `;
+    document.head.appendChild(style);
 });
