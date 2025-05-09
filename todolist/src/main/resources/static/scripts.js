@@ -9,7 +9,12 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(todos => {
             todos.forEach(todo => {
                 const li = document.createElement('li');
-                li.textContent = todo;
+                li.innerHTML = `
+                    <span class="todo-text">${todo.text}</span>
+                    <button class="check-btn">Check/Uncheck</button>
+                    <button class="delete-btn">Delete</button>
+                `;
+                li.dataset.id = todo.id;
                 li.classList.add('fade-in');
                 todoList.appendChild(li);
             });
@@ -18,22 +23,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add a new todo
     todoForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const newTodo = todoInput.value;
-        fetch('/todos', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ todo: newTodo })
-        })
-        .then(response => response.json())
-        .then(() => {
-            const li = document.createElement('li');
-            li.textContent = newTodo; // Use the submitted value directly
-            li.classList.add('fade-in');
-            todoList.appendChild(li);
-            todoInput.value = '';
-        });
+        const newTodo = todoInput.value.trim();
+        if (newTodo) {
+            fetch('/add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `todo=${encodeURIComponent(newTodo)}`
+            }).then(() => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span class="todo-text">${newTodo}</span>
+                    <button class="check-btn">Check/Uncheck</button>
+                    <button class="delete-btn">Delete</button>
+                `;
+                todoList.appendChild(li);
+                todoInput.value = '';
+            });
+        }
     });
 
     // Add fade-in animation
@@ -53,4 +59,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     `;
     document.head.appendChild(style);
+
+    // Handle check/uncheck and delete actions
+    todoList.addEventListener('click', (e) => {
+        if (e.target.classList.contains('delete-btn')) {
+            const todoId = e.target.parentElement.dataset.id;
+            fetch('/delete', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `todoId=${todoId}`
+            }).then(() => e.target.parentElement.remove());
+        } else if (e.target.classList.contains('check-btn')) {
+            const todoText = e.target.parentElement.querySelector('.todo-text');
+            todoText.classList.toggle('crossed-out');
+        }
+    });
 });

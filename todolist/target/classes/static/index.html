@@ -12,7 +12,10 @@
         <h1>Todo List</h1>
     </header>
     <main>
-        <ul id="todo-list"></ul>
+        <ul id="todo-list">
+            <c:forEach var="todo" items="${todos}">
+            </c:forEach>
+        </ul>
         <form id="todo-form">
             <input type="text" id="todo-input" placeholder="Add a new todo">
             <button type="submit">Add</button>

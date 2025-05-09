@@ -12,7 +12,9 @@ public class DeleteTodoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String todoId = request.getParameter("todoId");
         if (todoId != null && !todoId.isEmpty()) {
-            // Delete the to-do item from the list (in-memory or database)
+            synchronized (AddTodoServlet.getTodos()) {
+                AddTodoServlet.getTodos().removeIf(todo -> todo.getId().equals(todoId));
+            }
         }
         response.sendRedirect("list");
     }
