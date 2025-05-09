@@ -27,9 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
             body: JSON.stringify({ todo: newTodo })
         })
         .then(response => response.json())
-        .then(todo => {
+        .then(() => {
             const li = document.createElement('li');
-            li.textContent = todo;
+            li.textContent = newTodo; // Use the submitted value directly
             li.classList.add('fade-in');
             todoList.appendChild(li);
             todoInput.value = '';
