@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
+    <header style="box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
         <h1>Todo List</h1>
     </header>
     <main>
@@ -16,12 +16,12 @@
             <c:forEach var="todo" items="${todos}">
             </c:forEach>
         </ul>
-        <form id="todo-form">
-            <input type="text" id="todo-input" placeholder="Add a new todo">
+        <form id="todo-form" style="display: flex; flex-direction: column; align-items: center;">
+            <input type="text" id="todo-input" placeholder="Add a new todo" style="margin-bottom: 10px;">
             <button type="submit">Add</button>
         </form>
     </main>
-    <footer>
+    <footer style="box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.1);">
         <p>&copy; Project 2 ToDo List Rayan and Anas</p>
     </footer>
     <script src="scripts.js"></script>
